@@ -9,7 +9,7 @@ function NewSpent() {
 
             <Link to="/"><Text>Get Back</Text></Link>
         
-            <Text>ASDASDAS</Text>
+            
 
     </View>
   )
