@@ -11,7 +11,7 @@ const app = express();
 // Set baseUrl based on environment or configuration
 const isAndroid = process.env.PLATFORM === "android";
 const baseUrl = isAndroid
-  ? "192.168.95.76"
+  ? "192.168.252.76"
   : "localhost";
 
 app.use(

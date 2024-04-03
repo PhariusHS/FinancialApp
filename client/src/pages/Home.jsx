@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import ListOfBills from "../components/ListOfBills";
 import FunctButton from "../components/styledComponents/FunctButton";
 import {Link} from 'react-router-native'
@@ -9,10 +9,17 @@ function Home() {
     <View>
       <ListOfBills />
       <Link to="/createSpent">
-        <FunctButton>Dis shit</FunctButton>
+        <FunctButton style={styles.container}> Dis shit </FunctButton>
       </Link>
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingVertical: 20,
+    color: "black"
+  }
+})
 export default Home;

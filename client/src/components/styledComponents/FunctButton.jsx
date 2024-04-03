@@ -6,7 +6,7 @@ import {View, Text} from 'react-native'
 function FunctButton({children}) {
   return (
     <View>
-        <Text>CLICKEA ACA</Text>
+        <Text>{children}</Text>
     </View>
   )
 }
