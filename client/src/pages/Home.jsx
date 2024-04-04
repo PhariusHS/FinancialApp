@@ -9,7 +9,7 @@ function Home() {
     <View>
       <ListOfBills />
       <Link to="/createSpent">
-        <FunctButton style={styles.container}> Dis shit </FunctButton>
+        <FunctButton style={styles.container}> new spent </FunctButton>
       </Link>
     </View>
   );
