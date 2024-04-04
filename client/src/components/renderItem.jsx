@@ -1,6 +1,7 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { formatDate } from "../functions/formatDate";
 import StyledText from "./styledComponents/StyledText";
+import { BiCaretDown } from "react-icons/bi";
 
 
 export const renderItem = ({ item }) => (
@@ -10,7 +11,6 @@ export const renderItem = ({ item }) => (
           <StyledText>{item.name}</StyledText>
           <StyledText>{formatDate(item.date)}</StyledText>
         </View>
-
         <View style={styles.ObjectContainer}>
           <StyledText>${item.price}</StyledText>
         </View>
