@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import { formatDate } from "../functions/formatDate";
 import StyledText from "./styledComponents/StyledText";
-import { BiCaretDown } from "react-icons/bi";
+
 
 
 
