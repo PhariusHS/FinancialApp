@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, FlatList, Modal, TouchableOpacity } from "react-native";
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
@@ -13,6 +13,7 @@ function ListOfBills() {
   const currentMonth = currentDate.getMonth() + 1;
   const [data, setData] = useState([]);
   const [filterMonth, setFilterMonth] = useState(currentMonth);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     try {
@@ -23,8 +24,8 @@ function ListOfBills() {
   }, []);
 
   useEffect(() => {
-    if (filterMonth === 13) {
-      // Si el mes seleccionado es 13 (es decir, "Todos"), mostramos todos los gastos
+    if (filterMonth === 0) {
+      // Si el mes seleccionado es 0 (es decir, "Todos"), mostramos todos los gastos
       setData(spents);
     } else {
       // Filtramos los gastos por el mes seleccionado
@@ -40,14 +41,34 @@ function ListOfBills() {
   return (
     <View style={styles.main}>
       <View style={styles.container}>
-        <StyledText color="Primary">Spents</StyledText>
-        <SelectList
-          placeholder={items[filterMonth - 1].value }
-          setSelected={(itemValue) => setFilterMonth(itemValue)}
-          search = {false}
-          data={items} // Array de objetos con los meses y sus values
-        />
+        <StyledText color="primary">Spents</StyledText>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <StyledText color="primary">{items[filterMonth].value}</StyledText>
+        </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <SelectList 
+              setSelected={(itemValue) => setFilterMonth(itemValue)}
+              search = {false}
+              placeholder={items[filterMonth].value}
+              data={items} // Array de objetos con los meses y sus values
+            />
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <StyledText color="Primary">Close</StyledText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -70,7 +91,34 @@ const styles = StyleSheet.create({
   containerList: {
     maxHeight: 520,
   },
-
-
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    maxWidth: 300,
+    height:300,
+    width:250,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  closeButton: {
+    marginTop: 10,
+  },
 });
+
 export default ListOfBills;
