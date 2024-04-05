@@ -22,6 +22,8 @@
     "react-hook-form": "^7.51.2",
     "react-icons": "^5.0.1",
     "react-native": "0.72.10",
+    "react-native-dropdown-select-list": "^2.0.5",
+    "react-native-picker-select": "^9.1.3",
     "react-native-web": "~0.19.6",
     "react-router-native": "^6.22.3"
   },

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
 import { renderItem } from "./renderItem";
-import { Picker } from "@react-native-picker/picker";
+import { SelectList } from "react-native-dropdown-select-list";
+import { items } from "../../Months";
 
 function ListOfBills() {
   const { getContextSpents, spents } = useSpent();
@@ -15,7 +16,7 @@ function ListOfBills() {
 
   useEffect(() => {
     try {
-      getContextSpents();
+      getContextSpents(); //Request de datos al backend
     } catch (error) {
       console.error("Error en la obtención de datos", error);
     }
@@ -27,46 +28,49 @@ function ListOfBills() {
       setData(spents);
     } else {
       // Filtramos los gastos por el mes seleccionado
-      setData(spents.filter(spent => {
-        const spentMonth = new Date(spent.date).getMonth() + 1;
-        return spentMonth === filterMonth;
-      }));
+      setData(
+        spents.filter((spent) => {
+          const spentMonth = new Date(spent.date).getMonth() + 1;
+          return spentMonth === filterMonth;
+        })
+      );
     }
   }, [filterMonth, spents]);
 
   return (
     <View style={styles.main}>
-      <StyledText color="Primary">Spents</StyledText>
-      <Picker
-        selectedValue={filterMonth}
-        onValueChange={(itemValue, itemIndex) => setFilterMonth(itemValue)}
-      >
-        <Picker.Item label="Todos" value={13} />
-        <Picker.Item label="Enero" value={1} />
-        <Picker.Item label="Febrero" value={2} />
-        <Picker.Item label="Marzo" value={3} />
-        <Picker.Item label="Abril" value={4} />
-        <Picker.Item label="Mayo" value={5} />
-        <Picker.Item label="Junio" value={6} />
-        <Picker.Item label="Julio" value={7} />
-        <Picker.Item label="Agosto" value={8} />
-        <Picker.Item label="Septiembre" value={9} />
-        <Picker.Item label="Octubre" value={10} />
-        <Picker.Item label="Noviembre" value={11} />
-        <Picker.Item label="Diciembre" value={12} />
-      </Picker>
-      <FlatList data={data} renderItem={renderItem} style={styles.container} />
+      <View style={styles.container}>
+        <StyledText color="Primary">Spents</StyledText>
+        <SelectList
+          placeholder={items[filterMonth - 1].value }
+          setSelected={(itemValue) => setFilterMonth(itemValue)}
+          search = {false}
+          data={items} // Array de objetos con los meses y sus values
+        />
+      </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        style={styles.containerList}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    maxHeight: 520,
-  },
   main: {
     marginTop: Constants.statusBarHeight + 2,
   },
-});
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginRight: 20,
+  },
+  containerList: {
+    maxHeight: 520,
+  },
 
+
+});
 export default ListOfBills;
