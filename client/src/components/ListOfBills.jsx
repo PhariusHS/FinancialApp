@@ -5,7 +5,8 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Platform
 } from "react-native";
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
@@ -14,42 +15,19 @@ import { renderSpent } from "./renderSpent";
 import { items } from "../../Months";
 
 function ListOfBills() {
-  const { getContextSpents, spents } = useSpent();
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1;
-  const [data, setData] = useState([]);
-  const [filterMonth, setFilterMonth] = useState(currentMonth);
+  const { data, setFilterMonth, filterMonth} = useSpent();
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    try {
-      getContextSpents(); //Request de datos al backend
-    } catch (error) {
-      console.error("Error en la obtención de datos", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (filterMonth === 0) {
-      // Si el mes seleccionado es 0 (es decir, "Todos"), mostramos todos los gastos
-      setData(spents);
-    } else {
-      // Filtramos los gastos por el mes seleccionado
-      setData(
-        spents.filter((spent) => {
-          const spentMonth = new Date(spent.date).getMonth() + 1;
-          return spentMonth === filterMonth;
-        })
-      );
-    }
-  }, [filterMonth, spents]);
+  
 
   return (
     <View style={styles.main}>
       <View style={styles.container}>
-        <StyledText color="primary">Spents</StyledText>
+        <View style={styles.textContainer}>
+        <StyledText color="primary" fontSize="subheading" style={{marginHorizontal: 20}}>Spents</StyledText>
+        </View>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <StyledText color="primary"> 
+          <StyledText color="primary" fontSize="subheading" style={{marginHorizontal: 20}}> 
           {items[filterMonth].value}
           </StyledText>
         </TouchableOpacity>
@@ -96,13 +74,22 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight + 2,
   },
   container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginRight: 20,
+    marginTop: 30,
+    maxHeight: 350,
+
+  },
+  textContainer:{
+
+    flexDirection:"row",
+    marginBottom:20,
+
+    width: "100%",
+    justifyContent: "center",
+
   },
   containerList: {
-    maxHeight: 520,
+    maxHeight: Platform.OS === 'android' ? 520 : 350,
+    overflow:"scroll"
   },
   centeredView: {
     flex: 1,

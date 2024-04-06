@@ -4,6 +4,7 @@ import ListOfBills from "../components/ListOfBills";
 import FunctButton from "../components/styledComponents/FunctButton";
 import { Link } from "react-router-native";
 import StyledText from "../components/styledComponents/StyledText";
+import TotalSpents from "../components/TotalSpents";
 
 function Home() {
   return (
@@ -18,7 +19,7 @@ function Home() {
       </View>
       <View style={Styles.total}>
         <StyledText>Total: </StyledText>
-        <StyledText></StyledText>
+        <StyledText><TotalSpents/></StyledText>
       </View>
     </View>
   );
