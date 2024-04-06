@@ -6,29 +6,39 @@ import {
   Modal,
   TouchableOpacity,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
 import { renderSpent } from "./renderSpent";
 import { items } from "../../Months";
+import { AntDesign } from "@expo/vector-icons";
 
 function ListOfBills() {
-  const { data, setFilterMonth, filterMonth} = useSpent();
+  const { data, setFilterMonth, filterMonth } = useSpent();
   const [modalVisible, setModalVisible] = useState(false);
-
-  
 
   return (
     <View style={styles.main}>
       <View style={styles.container}>
         <View style={styles.textContainer}>
-        <StyledText color="primary" fontSize="subheading" style={{marginHorizontal: 20}}>Spents</StyledText>
+          <StyledText
+            color="primary"
+            fontSize="subheading"
+            style={{ marginHorizontal: 20 }}
+          >
+            Spents
+          </StyledText>
         </View>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <StyledText color="primary" fontSize="subheading" style={{marginHorizontal: 20}}> 
-          {items[filterMonth].value}
+
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={{flexDirection: "row" , marginHorizontal: 20, alignItems:"center"}}>
+          <AntDesign name="caretdown" size={14} color="black" />
+          <StyledText
+            color="primary"
+            fontSize="upbody"
+          >
+            {items[filterMonth].value}
           </StyledText>
         </TouchableOpacity>
       </View>
@@ -44,10 +54,12 @@ function ListOfBills() {
               {items.map((item) => (
                 <TouchableOpacity
                   key={item.key}
-                  onPress={() => {setFilterMonth(item.key), setModalVisible(false)}}
+                  onPress={() => {
+                    setFilterMonth(item.key), setModalVisible(false);
+                  }}
                   style={styles.months}
                 >
-                  <StyledText >{item.value}</StyledText>
+                  <StyledText>{item.value}</StyledText>
                 </TouchableOpacity>
               ))}
             </ScrollView>
@@ -76,20 +88,17 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     maxHeight: 350,
-
   },
-  textContainer:{
-
-    flexDirection:"row",
-    marginBottom:20,
+  textContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
 
     width: "100%",
     justifyContent: "center",
-
   },
   containerList: {
-    maxHeight: Platform.OS === 'android' ? 520 : 350,
-    overflow:"scroll"
+    maxHeight: Platform.OS === "android" ? 500 : 350,
+    overflow: "scroll",
   },
   centeredView: {
     flex: 1,
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    display:"flex",
+    display: "flex",
     justifyContent: "flex-start",
     margin: 20,
     maxWidth: 300,
@@ -120,17 +129,16 @@ const styles = StyleSheet.create({
   closeButton: {
     marginTop: 10,
   },
-  months:{
+  months: {
     borderWidth: 1,
     borderRadius: 6,
     padding: 5,
-    paddingHorizontal:40,
+    paddingHorizontal: 40,
     marginTop: 8,
     width: "100%",
     alignItems: "center",
   },
-  scrollView: {
-  },
+  scrollView: {},
 });
 
 export default ListOfBills;
