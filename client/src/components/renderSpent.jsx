@@ -5,7 +5,7 @@ import StyledText from "./styledComponents/StyledText";
 
 
 
-export const renderItem = ({ item }) => (
+export const renderSpent = ({ item }) => (
     <View style={styles.container}>
       <View style={styles.ChildContainer}>
         <View style={styles.ObjectContainer}>

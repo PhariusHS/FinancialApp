@@ -10,8 +10,7 @@ import {
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
-import { renderItem } from "./renderItem";
-import { SelectList } from "react-native-dropdown-select-list";
+import { renderSpent } from "./renderSpent";
 import { items } from "../../Months";
 
 function ListOfBills() {
@@ -85,7 +84,7 @@ function ListOfBills() {
       </Modal>
       <FlatList
         data={data}
-        renderItem={renderItem}
+        renderItem={renderSpent}
         style={styles.containerList}
       />
     </View>
