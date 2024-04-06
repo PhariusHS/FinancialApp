@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Modal, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Modal,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
-import { renderItem } from "./renderItem";
-import { SelectList } from "react-native-dropdown-select-list";
+import { renderSpent } from "./renderSpent";
 import { items } from "../../Months";
 
 function ListOfBills() {
@@ -43,7 +49,9 @@ function ListOfBills() {
       <View style={styles.container}>
         <StyledText color="primary">Spents</StyledText>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <StyledText color="primary">{items[filterMonth].value}</StyledText>
+          <StyledText color="primary"> 
+          {items[filterMonth].value}
+          </StyledText>
         </TouchableOpacity>
       </View>
       <Modal
@@ -54,12 +62,17 @@ function ListOfBills() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <SelectList 
-              setSelected={(itemValue) => setFilterMonth(itemValue)}
-              search = {false}
-              placeholder={items[filterMonth].value}
-              data={items} // Array de objetos con los meses y sus values
-            />
+            <ScrollView contentContainerStyle={styles.scrollView}>
+              {items.map((item) => (
+                <TouchableOpacity
+                  key={item.key}
+                  onPress={() => {setFilterMonth(item.key), setModalVisible(false)}}
+                  style={styles.months}
+                >
+                  <StyledText >{item.value}</StyledText>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => setModalVisible(false)}
@@ -71,7 +84,7 @@ function ListOfBills() {
       </Modal>
       <FlatList
         data={data}
-        renderItem={renderItem}
+        renderItem={renderSpent}
         style={styles.containerList}
       />
     </View>
@@ -98,10 +111,11 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    display:"flex",
+    justifyContent: "flex-start",
     margin: 20,
     maxWidth: 300,
-    height:300,
-    width:250,
+    width: 250,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -118,6 +132,17 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginTop: 10,
+  },
+  months:{
+    borderWidth: 1,
+    borderRadius: 6,
+    padding: 5,
+    paddingHorizontal:40,
+    marginTop: 8,
+    width: "100%",
+    alignItems: "center",
+  },
+  scrollView: {
   },
 });
 

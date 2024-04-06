@@ -9,7 +9,6 @@ function AppBar() {
       <View style={styles.appBar}>
         <AppBarTab to={"/"}>Home</AppBarTab>
         <AppBarTab to={"/signin"}>Log In</AppBarTab>
-        <AppBarTab to={"/newSpents"}>Nuevo</AppBarTab>
       </View>
     </View>
   );
