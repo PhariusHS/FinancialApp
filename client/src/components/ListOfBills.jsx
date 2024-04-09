@@ -11,12 +11,12 @@ import {
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
-import { renderSpent } from "./renderSpent";
+import RenderSpent from "./renderSpent";
 import { items } from "../../Months";
 import { AntDesign } from "@expo/vector-icons";
 
 function ListOfBills() {
-  const { data, setFilterMonth, filterMonth } = useSpent();
+  const { data, setFilterMonth, filterMonth, deleteContextSpent } = useSpent();
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -32,12 +32,16 @@ function ListOfBills() {
           </StyledText>
         </View>
 
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{flexDirection: "row" , marginHorizontal: 20, alignItems:"center"}}>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{
+            flexDirection: "row",
+            marginHorizontal: 20,
+            alignItems: "center",
+          }}
+        >
           <AntDesign name="caretdown" size={14} color="black" />
-          <StyledText
-            color="primary"
-            fontSize="upbody"
-          >
+          <StyledText color="primary" fontSize="upbody">
             {items[filterMonth].value}
           </StyledText>
         </TouchableOpacity>
@@ -74,7 +78,7 @@ function ListOfBills() {
       </Modal>
       <FlatList
         data={data}
-        renderItem={renderSpent}
+        renderItem={({ item }) => <RenderSpent item={item} />} // Use RenderSpent component here
         style={styles.containerList}
       />
     </View>

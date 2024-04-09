@@ -9,11 +9,9 @@ function TotalSpents() {
     return accumulator + actualItem.price;
   }, 0);
 
-
-
   return (
     <View>
-      <StyledText>{parserNum(totalPrice)}</StyledText>
+      <StyledText color="primary" fontWeight="bold" fontSize="subheading">{parserNum(totalPrice)}</StyledText>
     </View>
   );
 }

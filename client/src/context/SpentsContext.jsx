@@ -26,7 +26,7 @@ export function SpentsProvider({ children }) {
   const [data, setData] = useState([]);
   const [filterMonth, setFilterMonth] = useState(currentMonth);
 
-  const getContextSpents = async () => {
+  const getContextSpents = async () => { //Pedido get de todos los gastos
     try {
       const res = await getSpentsRequest();
       setSpents(res.data);
@@ -35,10 +35,20 @@ export function SpentsProvider({ children }) {
     }
   };
 
-  const createContextSpents = async (spent) =>{
+  const createContextSpents = async (spent) =>{ //Pedido POST
     const res = await createSpentRequest(spent)
     console.log(res)
   }
+
+  const deleteContextSpent = async (id) => {
+    try {
+      const res = await deleteSpentRequest(id);
+      if (res.status === 204)
+        setSpents(spents.filter((spent) => spent._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -62,12 +72,16 @@ export function SpentsProvider({ children }) {
       );
     }
   }, [filterMonth, spents]);
+
+
+ 
   return (
     <SpentsContext.Provider
      value={{
          spents, 
          getContextSpents,
          createContextSpents,
+         deleteContextSpent,
          data,
          setFilterMonth,
          filterMonth
