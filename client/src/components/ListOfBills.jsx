@@ -11,7 +11,7 @@ import {
 import StyledText from "./styledComponents/StyledText";
 import { useSpent } from "../context/SpentsContext";
 import Constants from "expo-constants";
-import RenderSpent from "./renderSpent";
+import RenderSpent from './RenderSpent'
 import { items } from "../../Months";
 import { AntDesign } from "@expo/vector-icons";
 

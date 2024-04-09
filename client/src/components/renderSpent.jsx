@@ -15,7 +15,7 @@ const RenderSpent = ({ item }) => {
           <StyledText>{item.name}</StyledText>
           <StyledText>{formatDate(item.date)}</StyledText>
         </View>
-        <View>
+        <View style={styles.ObjectContainer}>
           <FunctButton onPress={() => deleteContextSpent(item._id)}>DEL</FunctButton>
         </View>
         <View style={styles.ObjectContainer}>
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
   ObjectContainer: {
     alignItems: 'start',
     justifyContent: 'center',
+    margin: 5,
   },
 });

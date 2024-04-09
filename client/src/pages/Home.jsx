@@ -37,10 +37,13 @@ function Home() {
 const Styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff",
     borderWidth: 1,
-    width: "75%",
+    marginLeft:10,
+    width: "95%",
   },
   total: {
     margin: 10,
