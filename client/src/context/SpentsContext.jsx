@@ -56,7 +56,7 @@ export function SpentsProvider({ children }) {
     } catch (error) {
       console.error("Error en la obtención de datos", error);
     }
-  }, []);
+  }, [spents]);
 
   useEffect(() => {
     if (filterMonth === 0) {
