@@ -1,12 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { View, StyleSheet, TouchableHighlight } from "react-native";
 import ListOfBills from "../components/ListOfBills";
 import { Link } from "react-router-native";
 import StyledText from "../components/styledComponents/StyledText";
 import TotalSpents from "../components/TotalSpents";
 import { AntDesign } from "@expo/vector-icons";
+import { useSpent } from "../context/SpentsContext";
 
 function Home() {
+  const {getContextSpents} = useSpent();
+
+  useEffect(() => {
+    try {
+      getContextSpents(); //Request de datos al backend
+    } catch (error) {
+      console.error("Error en la obtención de datos", error);
+    }
+  }, []);
+
   return (
     <View>
       <View>

@@ -2,9 +2,7 @@ import spent from "../models/spent.model.js";
 
 export const getSpents = async (req, res) => {
   try {
-    const spents = await spent.find({
-
-    });
+    const spents = await spent.find();
     res.json(spents);
   } catch (error) {
     return res.status(500).json({ message: error.message });

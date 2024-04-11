@@ -10,6 +10,7 @@ const PORT = 3000;
 
 const app = express();
 app.use(morgan("dev"));
+app.use(express.json())
 
 // Set baseUrl based on environment or configuration
 const isAndroid = process.env.PLATFORM === "android";
@@ -21,8 +22,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 app.listen(PORT, () => {
   console.log("Server listening on " + PORT);
