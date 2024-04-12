@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import createAccessToken from "../libs/jwt.js";
 
 export const register = async (req, res) => {
-  const { email, username } = req.body;
+  const { email, username, password} = req.body;
 
   try {
     const passwordHash = await bcrypt.hash(password, 10);
