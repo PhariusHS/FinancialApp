@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import AppBar from "./components/AppBar";
 import NewSpent from "./pages/NewSpent";
+import Register from "./pages/Register";
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="signin" element={<LogIn />} />
+        <Route path="register" element={<Register />} />
         <Route path="createSpent" element={<NewSpent />} />
       </Routes>
       <AppBar />

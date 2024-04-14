@@ -15,8 +15,8 @@ const RenderSpent = ({ item }) => {
           <StyledText>{item.name}</StyledText>
           <StyledText>{formatDate(item.date)}</StyledText>
         </View>
-        <View style={styles.ObjectContainer}>
-          <FunctButton onPress={() => deleteContextSpent(item._id)}>DEL</FunctButton>
+        <View>
+          <FunctButton onPress={item => deleteContextSpent(item._id)}>DEL</FunctButton>
         </View>
         <View style={styles.ObjectContainer}>
           <StyledText>${item.price}</StyledText>
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   ObjectContainer: {
-    alignItems: 'start',
     justifyContent: 'center',
-    margin: 5,
   },
 });

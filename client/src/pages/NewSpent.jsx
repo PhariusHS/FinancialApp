@@ -12,7 +12,6 @@ function NewSpent() {
   const { createContextSpents } = useSpent();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     try {
       createContextSpents(data);
       reset();

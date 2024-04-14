@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 import { useController } from "react-hook-form";
 
-function Input({ name, control, type, placeholder }) {
+function Input({ name, control, type, placeholder, secureTextEntry}) {
   const { field } = useController({
     name, // Pass the name prop to useController
     control,
@@ -16,6 +16,7 @@ function Input({ name, control, type, placeholder }) {
       value={field.value} 
       placeholder={placeholder}
       onChangeText={field.onChange} 
+      secureTextEntry={secureTextEntry}
     />
   );
 }
