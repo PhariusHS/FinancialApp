@@ -4,14 +4,16 @@ import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
 import { registerRequest } from "../api/auth";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-native";
 function Register() {
-  const { control, handleSubmit, reset } = useForm();
-
-  const onSubmit = handleSubmit( async (data) => {
+  const { control, handleSubmit } = useForm();
+  const navigate = useNavigate()
+  const onSubmit = handleSubmit(async (data) => {
     try {
-      const res = await registerRequest(data);
+      await registerRequest(data);
+      navigate("/", {replace:true})
     } catch (error) {
-      console.error("Error registrando al usuario",error);
+      console.error("Error registrando al usuario", error);
     }
   });
   return (
@@ -32,7 +34,7 @@ function Register() {
         <Input control={control} name="password" secureTextEntry={true}></Input>
       </View>
       <View>
-        <Button title="submit" onPress={onSubmit} />
+          <Button title="submit" onPress={onSubmit} />
       </View>
     </View>
   );
