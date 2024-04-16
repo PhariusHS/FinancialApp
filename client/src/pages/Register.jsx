@@ -1,40 +1,57 @@
 import { Button, View, StyleSheet } from "react-native";
+import { useNavigate } from "react-router-native";
 import Constants from "expo-constants";
 import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
-import { registerRequest } from "../api/auth";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-native";
+import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+
 function Register() {
-  const { control, handleSubmit } = useForm();
-  const navigate = useNavigate()
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await registerRequest(data);
-      navigate("/", {replace:true})
-    } catch (error) {
-      console.error("Error registrando al usuario", error);
-    }
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { signUp, isAuthenticated, errors: registerErrors } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/spents");
+  }, [isAuthenticated]);
+
+  const onSubmit = handleSubmit((data) => {
+    signUp(data);
   });
   return (
     <View style={styles.main}>
+      {registerErrors.map((error, i)=> (
+        <View style={styles.error} key={i}><StyledText color='white'>{error}</StyledText></View>
+      ))}
       <View>
         <StyledText align="center" fontWeight="bold">
           Username
         </StyledText>
-        <Input control={control} name="username"></Input>
+        <Input control={control} name="username" required={true}></Input>
+        {errors.username && <StyledText align="center" color='error' >Username is required</StyledText>}
         <StyledText align="center" fontWeight="bold">
           Email
         </StyledText>
         <Input control={control} name="email" type="email"></Input>
+        {errors.email && <StyledText align="center" color='error' >Email is required</StyledText>}
+
         <StyledText align="center" fontWeight="bold">
           Password
         </StyledText>
-
         <Input control={control} name="password" secureTextEntry={true}></Input>
+        {errors.password &&  (
+        <StyledText align="center" color='error' >Password is required</StyledText>
+        )}
+
       </View>
       <View>
-          <Button title="submit" onPress={onSubmit} />
+        <Button title="submit" onPress={onSubmit} />
+        <Button title="clg" onPress={() => console.log(user)} />
       </View>
     </View>
   );
@@ -44,6 +61,11 @@ const styles = StyleSheet.create({
   main: {
     marginTop: Constants.statusBarHeight + 2,
   },
+  error: {
+    backgroundColor: "red",
+    borderWidth:1,
+    borderRadius: 5
+  }
 });
 
 export default Register;

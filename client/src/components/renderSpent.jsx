@@ -15,8 +15,8 @@ const RenderSpent = ({ item }) => {
           <StyledText>{item.name}</StyledText>
           <StyledText>{formatDate(item.date)}</StyledText>
         </View>
-        <View>
-          <FunctButton onPress={item => deleteContextSpent(item._id)}>DEL</FunctButton>
+        <View onPress={() => deleteContextSpent(item._id)} style={styles.ChildContainer}>
+          <StyledText >DEL</StyledText>
         </View>
         <View style={styles.ObjectContainer}>
           <StyledText>${item.price}</StyledText>

@@ -6,11 +6,13 @@ function Input({ name, control, type, placeholder, secureTextEntry}) {
   const { field } = useController({
     name, // Pass the name prop to useController
     control,
-    defaultValue: ""
+    defaultValue: "",
+    rules: { required: "This field is required" }
   });
 
   return (
     <TextInput 
+    
     style={styles.input}
       inputMode={type}
       value={field.value} 

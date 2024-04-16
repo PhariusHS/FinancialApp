@@ -13,9 +13,10 @@ const Main = () => {
     <View style={{ flexGrow: 1 }}>
       <StatusBar barStyle="dark-content" />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LogIn/>} />
         <Route path="signin" element={<LogIn />} />
         <Route path="register" element={<Register />} />
+        <Route path="spents" element={<Home/>}/>
         <Route path="createSpent" element={<NewSpent />} />
       </Routes>
       <AppBar />

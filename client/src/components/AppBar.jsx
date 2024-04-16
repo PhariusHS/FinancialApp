@@ -7,7 +7,7 @@ function AppBar() {
   return (
     <View style={styles.container}>
       <View style={styles.appBar}>
-        <AppBarTab to={"/spents"}>Home</AppBarTab>
+        <AppBarTab to={"/"}>Home</AppBarTab>
         <AppBarTab to={"/signin"}>Log In</AppBarTab>
         <AppBarTab to={"/register"}>Register</AppBarTab>
       </View>
