@@ -44,14 +44,11 @@ function Register() {
           Password
         </StyledText>
         <Input control={control} name="password" secureTextEntry={true}></Input>
-        {errors.password &&  (
-        <StyledText align="center" color='error' >Password is required</StyledText>
-        )}
+        {errors.password &&   <StyledText align="center" color='error' >Password is required</StyledText> }
 
       </View>
       <View>
         <Button title="submit" onPress={onSubmit} />
-        <Button title="clg" onPress={() => console.log(user)} />
       </View>
     </View>
   );
@@ -62,6 +59,8 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight + 2,
   },
   error: {
+    margin:5,
+    padding:10,
     backgroundColor: "red",
     borderWidth:1,
     borderRadius: 5
