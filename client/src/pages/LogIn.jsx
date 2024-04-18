@@ -48,7 +48,6 @@ function LogIn() {
       </View>
       <View>
         <Button title="submit" onPress={onSubmit} />
-        <Button title="clg" onPress={() => console.log(singInErrors)} />
       </View>
     </View>
   );
