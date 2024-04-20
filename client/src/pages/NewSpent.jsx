@@ -23,7 +23,7 @@ function NewSpent() {
   return (
     <View style={styles.main}>
       <View>
-        <Link to="/">
+        <Link to="/spents">
           <Text>Get Back</Text>
         </Link>
       </View>

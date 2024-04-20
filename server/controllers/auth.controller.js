@@ -46,7 +46,7 @@ export const login = async (req, res) => {
     //Verificamos si la password es la correcta
 
     if (!isMatch)
-      return res.status(400).json({ message: "Invalid credential" });
+      return res.status(400).json({issues: [{ message: "Invalid credential" }]});
 
     const token = await createAccessToken({ id: userFound._id });
     //En caso de ser correcta creamos el Token

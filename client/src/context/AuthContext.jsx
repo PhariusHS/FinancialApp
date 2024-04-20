@@ -33,15 +33,17 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user);
       console.log(res)
     } catch (error) {
-      setErrors(error.response.data.issues)
+      console.log(error.response.data)
+    setErrors(error.response.data.issues)
     }
   }
 
   useEffect(() => {
     if(errors > 0) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setErrors([]) //Esperamos 5 segundos para hacer clear de los errors
       }, 5000)
+      return () => clearTimeout(timer)
     }
   }, [errors])
 

@@ -1,5 +1,5 @@
 import { Button, View, StyleSheet } from "react-native";
-import { useNavigate } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import Constants from "expo-constants";
 import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
@@ -47,6 +47,10 @@ function Register() {
         {errors.password &&   <StyledText align="center" color='error' >Password is required</StyledText> }
 
       </View>
+      <View style={styles.redirect}>
+        <StyledText>Do you have an accout?</StyledText>
+        <Link to={"/signin"}><StyledText color="primary">Sign in</StyledText></Link>
+      </View>
       <View>
         <Button title="submit" onPress={onSubmit} />
       </View>
@@ -64,6 +68,12 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     borderWidth:1,
     borderRadius: 5
+  },
+  redirect:{
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 5,
+
   }
 });
 
