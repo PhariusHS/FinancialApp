@@ -32,7 +32,7 @@ export const loginSchema = z.object({
       required_error: "Email required",
     })
     .email({
-      message: "Invalid format",
+      message: "Email is not valid",
     }),
   password: z.string({
     required_error: "Password required",

@@ -13,14 +13,15 @@ function LogIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { singIn , errors: singInErrors } = useAuth();
+  const { signIn , errors: signInErrors } = useAuth();
 
   const onSubmit = handleSubmit((data) => {
-    singIn(data);
+    signIn(data);
   });
+
   return (
     <View style={styles.main}>
-      {singInErrors.map((error, i) => (
+      {signInErrors.map((error, i) => (
         <View style={styles.error} key={i}>
           <StyledText color="white">{error.message}</StyledText>
         </View>
@@ -48,6 +49,8 @@ function LogIn() {
       </View>
       <View>
         <Button title="submit" onPress={onSubmit} />
+        <Button title="clg" onPress={() => console.log(signInErrors)} />
+        
       </View>
     </View>
   );

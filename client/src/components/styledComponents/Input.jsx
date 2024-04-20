@@ -7,7 +7,7 @@ function Input({ name, control, type, placeholder, secureTextEntry}) {
     name, // Pass the name prop to useController
     control,
     defaultValue: "",
-    rules: { required: "This field is required" }
+    rules: { required: "This field is required" } //Controller para un manejo de errores optimo
   });
 
   return (

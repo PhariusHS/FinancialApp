@@ -2,7 +2,7 @@ import spent from "../models/spent.model.js";
 
 export const getSpents = async (req, res) => {
   try {
-    const spents = await spent.find();
+    const spents = await spent.find(); 
     res.json(spents);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -10,7 +10,7 @@ export const getSpents = async (req, res) => {
 };
 
 export const getSpent = async (req, res) => {
-    try {
+    try { //Buscamos gasto por ID
         const spent = await spent.findById(req.params.id);
         if (!spent) return res.status(404).json({ message: "spent not found" });
         return res.json(spent);
@@ -22,7 +22,7 @@ export const getSpent = async (req, res) => {
 export const createSpent = async (req, res) => {
   try {
     const { name, price, type, description, necessary } = req.body;
-
+    //Props para crear el spent
     const newSpent = new spent({
       name,
       price,
