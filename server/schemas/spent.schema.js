@@ -4,7 +4,7 @@ export const spentSchema = z.object({
     name: z.string({
         required_error: "Name is required"
     }).max(24, {message: "The name must not exceed 24 characters"}),
-    price: z.number({
+    price: z.string({
         required_error: "Price is required"
     }),
     type:z.string({
