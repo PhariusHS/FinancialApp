@@ -5,7 +5,6 @@ import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
 
 function Register() {
   const {
@@ -13,9 +12,10 @@ function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signUp, isAuthenticated, errors: registerErrors } = useAuth();
+  const { signUp, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (isAuthenticated) navigate("/spents");
   }, [isAuthenticated]);

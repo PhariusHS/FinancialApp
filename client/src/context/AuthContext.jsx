@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthContext = createContext();
 
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await registerRequest(user);
       // Guardar el token en AsyncStorage
-      await AsyncStorage.setItem('token', res.data.token);
+      await AsyncStorage.setItem("token", res.data.token);
       setUser(res.data);
       setIsAuthenticated(true);
     } catch (error) {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(user);
       // Guardar el token en AsyncStorage
-      await AsyncStorage.setItem('token', res.data.token);
+      await AsyncStorage.setItem("token", res.data.token);
       setIsAuthenticated(true);
       setUser(res.data);
     } catch (error) {
@@ -46,20 +46,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   useEffect(() => {
     const checkLogin = async () => {
       try {
         // Obtener el token de AsyncStorage
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem("token");
         if (token) {
           // Verificar el token
           const res = await verifyTokenRequest(token);
+
           if (res && res.data) {
             setIsAuthenticated(true);
             setUser(res.data);
           } else {
             // Limpiar el token si no es válido
-            await AsyncStorage.removeItem('token');
+            await AsyncStorage.removeItem("token");
           }
         }
       } catch (error) {

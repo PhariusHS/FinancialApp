@@ -1,11 +1,12 @@
 import { Button, View, StyleSheet } from "react-native";
-import { Link} from "react-router-native";
+import { Link } from "react-router-native";
 import Constants from "expo-constants";
 import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-native";
 
 function LogIn() {
   const {
@@ -13,7 +14,12 @@ function LogIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signIn , errors: signInErrors } = useAuth();
+  const { signIn, errors: signInErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/spents");
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit((data) => {
     signIn(data);
@@ -50,11 +56,12 @@ function LogIn() {
       <View style={styles.redirect}>
         <StyledText>Dont have an account yet?</StyledText>
 
-        <Link to={"/register"}><StyledText color="primary">Sign up</StyledText></Link>
+        <Link to={"/register"}>
+          <StyledText color="primary">Sign up</StyledText>
+        </Link>
       </View>
       <View>
         <Button title="submit" onPress={onSubmit} />
-        
       </View>
     </View>
   );
@@ -71,12 +78,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
   },
-  redirect:{
+  redirect: {
     flexDirection: "row",
     justifyContent: "space-between",
     margin: 5,
-
-  }
+  },
 });
 
 export default LogIn;
