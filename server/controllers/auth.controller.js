@@ -23,7 +23,6 @@ export const register = async (req, res) => {
     const token = await createAccessToken({ id: userSaved._id });
     //Invocamos la funcion createToken para el usuario
 
-    res.cookie("token", token);
     res.json({
       // devolucion para el front
       id: userSaved._id,
@@ -31,6 +30,7 @@ export const register = async (req, res) => {
       email: userSaved.email,
       createdAt: userSaved.createdAt,
       updatedAt: userSaved.updatedAt,
+      token: token,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
 
     if (!userFound)
       //Verificamos que exista un usuario con el email ingresado
-      return res.status(400).json(["Invalid credential"]);
+      return res.status(400).json(["User doesn't exist"]);
 
     const isMatch = await bcrypt.compare(password, userFound.password);
     //Verificamos si la password es la correcta
@@ -52,18 +52,18 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res
         .status(400)
-        .json({ issues: [{ message: "Invalid credential" }] });
+        .json({ issues: [{ message: "Invalid password" }] });
 
     const token = await createAccessToken({ id: userFound._id });
     //En caso de ser correcta creamos el Token
 
-    res.cookie("token", token);
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
       createdAt: userFound.createdAt,
       updatedAt: userFound.updatedAt,
+      token: token,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
