@@ -1,6 +1,6 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
-import Cookies from "js-cookie";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthContext = createContext();
 
@@ -21,9 +21,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const signUp = async (user) => {
-    // Funcion de contexto para POST register
     try {
       const res = await registerRequest(user);
+      // Guardar el token en AsyncStorage
+      await AsyncStorage.setItem('token', res.data.token);
       setUser(res.data);
       setIsAuthenticated(true);
     } catch (error) {
@@ -33,59 +34,51 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signIn = async (user) => {
-    //Funcion de contexto para POST login
     try {
       const res = await loginRequest(user);
+      // Guardar el token en AsyncStorage
+      await AsyncStorage.setItem('token', res.data.token);
       setIsAuthenticated(true);
       setUser(res.data);
     } catch (error) {
-      console.log(error.response.data);
-      setErrors(error.response.data.issues);
+      console.error("Error iniciando sesión", error);
+      setErrors(error.response.data);
     }
   };
 
   useEffect(() => {
-    if (errors > 0) {
-      const timer = setTimeout(() => {
-        setErrors([]); //Esperamos 5 segundos para hacer clear de los errors
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [errors]);
-
-  useEffect(() => {
     const checkLogin = async () => {
-      const cookies = Cookies.get();
-      if (!cookies.token) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return;
-      }
-
       try {
-
-        const res = await verifyTokenRequest(cookies.token);
-
-        if (!res.data) return setIsAuthenticated(false);
-        setIsAuthenticated(true);
-        setUser(res.data);
-        setLoading(false);
+        // Obtener el token de AsyncStorage
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          // Verificar el token
+          const res = await verifyTokenRequest(token);
+          if (res && res.data) {
+            setIsAuthenticated(true);
+            setUser(res.data);
+          } else {
+            // Limpiar el token si no es válido
+            await AsyncStorage.removeItem('token');
+          }
+        }
       } catch (error) {
-        console.log("Error verifying", error)
-        setIsAuthenticated(false);
+        console.error("Error verificando la sesión del usuario", error);
+      } finally {
         setLoading(false);
       }
     };
     checkLogin();
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
         signUp,
+        signIn,
         setErrors,
         user,
         errors,
-        signIn,
         isAuthenticated,
         loading,
       }}
