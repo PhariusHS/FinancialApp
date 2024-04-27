@@ -46,7 +46,7 @@ export function SpentsProvider({ children }) {
       if (res.status === 204)
         setSpents(spents.filter((spent) => spent._id !== id));
     } catch (error) {
-      console.log(error);
+      console.log("Error deleting",error.response);
     }
   };
 

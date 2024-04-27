@@ -78,7 +78,7 @@ function ListOfBills() {
       </Modal>
       <FlatList
         data={data}
-        renderItem={({ item }) => <RenderSpent item={item} />} // Use RenderSpent component here
+        renderItem={({ item }) => <RenderSpent item={item} delId={item._id} />} // Use RenderSpent component here
         style={styles.containerList}
       />
     </View>

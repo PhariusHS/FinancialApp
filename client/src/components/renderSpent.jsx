@@ -1,25 +1,25 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import StyledText from './styledComponents/StyledText';
 import { formatDate } from '../functions/formatDate';
 import { useSpent } from '../context/SpentsContext';
 import FunctButton from './styledComponents/FunctButton';
 
-const RenderSpent = ({ item }) => {
+const RenderSpent = (props) => {
   const { deleteContextSpent } = useSpent();
 
   return (
     <View style={styles.container}>
       <View style={styles.ChildContainer}>
         <View style={styles.ObjectContainer}>
-          <StyledText>{item.name}</StyledText>
-          <StyledText>{formatDate(item.date)}</StyledText>
+          <StyledText>{props.item.name}</StyledText>
+          <StyledText>{formatDate(props.item.date)}</StyledText>
         </View>
-        <View onPress={() => deleteContextSpent(item._id)} style={styles.ChildContainer}>
-          <StyledText >DEL</StyledText>
+        <View  style={styles.ChildContainer}>
+          <TouchableWithoutFeedback onPress={() => deleteContextSpent(props.delId)}><StyledText>DEL</StyledText></TouchableWithoutFeedback>
         </View>
         <View style={styles.ObjectContainer}>
-          <StyledText>${item.price}</StyledText>
+          <StyledText>${props.item.price}</StyledText>
         </View>
       </View>
     </View>
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
+    zIndex: 20,
   },
   ObjectContainer: {
     justifyContent: 'center',
