@@ -5,6 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import authRoutes from './routes/auth.routes.js'
 import cookieParser from "cookie-parser";
+import { convert } from "./apiCall.js";
 
 const PORT = 3000;
 
@@ -24,6 +25,7 @@ app.use(
   })
 );
 
+app.get('/convert', convert)
 
 app.listen(PORT, () => {
   console.log("Server listening on " + PORT);
