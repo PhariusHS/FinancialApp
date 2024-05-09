@@ -31,7 +31,7 @@ export function SpentsProvider({ children }) {
       const res = await getSpentsRequest();
       setSpents(res.data);
     } catch (error) {
-      console.error("Error on get spents", error);
+      console.error("Error on get spents", error.response);
     }
   };
 

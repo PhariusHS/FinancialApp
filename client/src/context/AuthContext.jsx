@@ -38,11 +38,13 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user);
       // Guardar el token en AsyncStorage
       await AsyncStorage.setItem("token", res.data.token);
+      console.log(res.data)
       setIsAuthenticated(true);
       setUser(res.data);
+      console.log(user)
     } catch (error) {
       console.error("Error iniciando sesión", error);
-      setErrors(error.response.data);
+      setErrors([error.response.data]);
     }
   };
 
@@ -65,7 +67,7 @@ export const AuthProvider = ({ children }) => {
           }
         }
       } catch (error) {
-        console.error("Error verificando la sesión del usuario", error);
+        console.error("Error verificando la sesión del usuario", error.message);
       } finally {
         setLoading(false);
       }

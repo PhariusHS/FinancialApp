@@ -25,11 +25,12 @@ function LogIn() {
     signIn(data);
   });
 
+  console.log(signInErrors)
   return (
     <View style={styles.main}>
       {signInErrors.map((error, i) => (
         <View style={styles.error} key={i}>
-          <StyledText color="white">{error.message}</StyledText>
+          <StyledText color="white">{error.issues[0].message}</StyledText>
         </View>
       ))}
       <View>

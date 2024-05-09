@@ -1,5 +1,6 @@
 import { Button, View, StyleSheet } from "react-native";
 import { Link, useNavigate } from "react-router-native";
+import { useEffect } from "react";
 import Constants from "expo-constants";
 import Input from "../components/styledComponents/Input";
 import StyledText from "../components/styledComponents/StyledText";
@@ -12,7 +13,7 @@ function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signUp, errors: registerErrors } = useAuth();
+  const { signUp, errors: registerErrors, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   
