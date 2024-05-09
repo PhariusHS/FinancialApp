@@ -37,4 +37,5 @@ export const loginSchema = z.object({
   password: z.string({
     required_error: "Password required",
   }),
+  token: z.string({}).optional(),
 });

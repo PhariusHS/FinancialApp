@@ -14,13 +14,13 @@ app.use(morgan("dev"));
 app.use(express.json())
 app.use(cookieParser())
 
-// Set baseUrl based on environment or configuration
+// Set baseUrl based on environment or configurationa
 const isAndroid = process.env.PLATFORM === "android";
-const baseUrl = isAndroid ? "192.168.103.76" : "localhost";
+const baseUrl = isAndroid ? "192.168.251.76" : "localhost";
 
 app.use(
   cors({
-    origin: `http://${baseUrl}:19006`,
+    origin: `http://${baseUrl}:8081`,
     credentials: true,
   })
 );
