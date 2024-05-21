@@ -52,7 +52,7 @@ function Register() {
         <StyledText>Do you have an accout?</StyledText>
         <Link to={"/signin"}><StyledText color="primary">Sign in</StyledText></Link>
       </View>
-      <View>
+      <View style={styles.ButtonContainer}>
         <Button title="submit" onPress={onSubmit} />
       </View>
     </View>
@@ -61,20 +61,31 @@ function Register() {
 
 const styles = StyleSheet.create({
   main: {
-    marginTop: Constants.statusBarHeight + 2,
+    display: "flex",
+    flexDirection:"column",
+    marginTop: 200,
+    justifyContent: "center",
+    
   },
   error: {
-    margin:5,
-    padding:10,
+    margin: 5,
+    padding: 10,
     backgroundColor: "red",
-    borderWidth:1,
-    borderRadius: 5
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 5,
   },
-  redirect:{
+  redirect: {
     flexDirection: "row",
+    justifyContent: "center",
     justifyContent: "space-between",
     margin: 5,
-
+  },
+  ButtonContainer:{
+    marginTop: 20,
+    paddingHorizontal:50,
+    borderRadius:50,
+    overflow: "hidden",
   }
 });
 

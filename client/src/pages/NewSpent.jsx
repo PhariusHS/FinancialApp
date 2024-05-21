@@ -32,19 +32,19 @@ function NewSpent() {
         <StyledText align="center" color="primary">
           Name
         </StyledText>
-        <Input control={control} name="name" placeholder="Get some bitches" />
+        <Input control={control} name="name" placeholder="Pago luz" />
         <StyledText align="center" color="primary">
           Price
         </StyledText>
-        <Input control={control} type="numeric" name="price" />
+        <Input control={control} type="numeric" name="price"  placeholder="30000"/>
         <StyledText align="center" color="primary">
           Type
         </StyledText>
-        <Input control={control} name="type" />
+        <Input control={control} name="type" placeholder="Servicios"/>
         <StyledText align="center" color="primary">
           Descrpition
         </StyledText>
-        <Input control={control} name="description" />
+        <Input control={control} name="description" placeholder="Luz mes Enero" />
         <Button title="submit" onPress={onSubmit} />
       </View>
     </View>

@@ -16,7 +16,7 @@ app.use(cookieParser())
 
 // Set baseUrl based on environment or configurationa
 const isAndroid = process.env.PLATFORM === "android";
-const baseUrl = isAndroid ? "192.168.251.76" : "localhost";
+const baseUrl = isAndroid ? "192.168.163.76" : "localhost";
 
 app.use(
   cors({

@@ -61,7 +61,7 @@ function LogIn() {
           <StyledText color="primary">Sign up</StyledText>
         </Link>
       </View>
-      <View>
+      <View style={styles.ButtonContainer}>
         <Button title="submit" onPress={onSubmit} />
       </View>
     </View>
@@ -70,20 +70,32 @@ function LogIn() {
 
 const styles = StyleSheet.create({
   main: {
-    marginTop: Constants.statusBarHeight + 2,
+    display: "flex",
+    flexDirection:"column",
+    marginTop: 200,
+    justifyContent: "center",
+    
   },
   error: {
     margin: 5,
     padding: 10,
     backgroundColor: "red",
+    justifyContent: "center",
     borderWidth: 1,
     borderRadius: 5,
   },
   redirect: {
     flexDirection: "row",
+    justifyContent: "center",
     justifyContent: "space-between",
     margin: 5,
   },
+  ButtonContainer:{
+    marginTop: 20,
+    paddingHorizontal:50,
+    borderRadius:50,
+    overflow: "hidden",
+  }
 });
 
 export default LogIn;
